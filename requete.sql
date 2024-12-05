@@ -30,7 +30,13 @@ SET recipe_name = "Poulet curry" -- maj de recipe_name
 WHERE id_recipe = 3  -- id à changer
 
 -- Supprimer la recette2
-
+DELETE FROM recipe_ingredients -- enfant de recipe obliger de la supprimer avant
+WHERE id_recipe = 2;
+ 
+puis
+ 
+DELETE FROM recipe -- supprimer le parent
+WHERE id_recipe = 2
 
 -- Afficher le prix total de la recette5
 
