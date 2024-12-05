@@ -5,10 +5,10 @@ INNER JOIN category ON recipe.id_category = category.id_category
 ORDER BY preparation_time DESC;
 
 -- Fait apparaitre le nb dingredients par recette
-SELECT COUNT(*), ingrediant_name
-FROM recipe_ingredients
-INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
-GROUP BY id_ingredient;
+SELECT recipe_name, COUNT(id_ingredient)
+FROM recipe
+INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
+GROUP BY recipe_name;
 
 -- Afficher les recettes de moins de 30min
 SELECT preparation_time FROM recipe
