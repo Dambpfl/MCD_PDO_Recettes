@@ -22,7 +22,7 @@ WHERE recipe_name LIKE "%Salade%" -- "Salade%" marche aussi dans mon cas, maj pa
 
 -- Insérer une nouvelle recette pates a la carbonara prepa 20min
 INSERT INTO recipe (recipe_name, preparation_time, instructions, id_category) -- ("*" ne fonctionne pas)
-VALUES ("Pâtes à la carbonara", 20, "Cuire les pates", 2) -- bien respecter l'ordre 
+VALUES ("Pâtes à la carbonara", 20, "Cuire les pates", 2) -- bien respecter l'ordre -- Verif avec SELECT * FROM recipe
 
 -- Modifier le nom de la recette id3
 
