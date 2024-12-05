@@ -140,3 +140,18 @@ HAVING total = (    --sous requete        --Cette requête sélectionne la ou le
         GROUP BY recipe.id_recipe
     ) AS subquery -- Nom de la sous-sous requete obligatoire -- subquery représente le calcul du prix total maximum des recettes
 );
+
+-- TABLE VIRTUEL (creation)
+CREATE VIEW recettepluschere AS 
+ SELECT recipe_name, SUM(ingrediant.price * recipe_ingredients.quantity) AS prixTotal
+ FROM recipe
+ 
+ INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
+ INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
+ 
+ GROUP BY recipe_name
+
+-- UTILISATION
+SELECT recipe_name, prixTotal
+FROM recettepluschere
+WHERE prixTotal = (SELECT MAX(prixTotal) FROM recettepluschere)
