@@ -16,7 +16,9 @@ FROM recipe
 WHERE preparation_time < 30;
 
 -- Afficher les recettes dont le nom contient salade
-
+SELECT recipe_name
+FROM recipe
+WHERE recipe_name LIKE "%Salade%" -- "Salade%" marche aussi dans mon cas, maj pas obligatoire
 
 -- Insérer une nouvelle recette pates a la carbonara prepa 20min
 
