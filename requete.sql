@@ -75,8 +75,9 @@ SELECT recipe_name
 FROM recipe
 WHERE recipe_name LIKE "%Poulet%"
 
--- Met à jour le temps de prépa de -5 min
-
+-- Met à jour le temps de prépa de toute les recettes de -5 min
+UPDATE recipe
+SET preparation_time = preparation_time - 5 -- NE PAS OUBLIER DE SOUSTRAIRE A LA VALEUR ACTUEL
 
 -- Affiche les recettes sans ingrédients coutant + de 2€
 
