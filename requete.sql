@@ -71,7 +71,9 @@ INNER JOIN recipe ON category.id_category = recipe.id_category
 GROUP BY category_name
 
 -- Afficher les recettes qui contiennent l'ingrédient Poulet
-
+SELECT recipe_name
+FROM recipe
+WHERE recipe_name LIKE "%Poulet%"
 
 -- Met à jour le temps de prépa de -5 min
 
