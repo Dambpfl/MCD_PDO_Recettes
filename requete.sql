@@ -121,3 +121,22 @@ WHERE recipe.id_recipe
 GROUP BY recipe.id_recipe, recipe.recipe_name 
 ORDER BY total DESC
 LIMIT 1                          --- 1ère façon de faire pour afficher la recette la plus couteuse
+
+
+
+SELECT recipe.id_recipe, recipe.recipe_name,  -- 2è façon de faire pour afficher la recette la plus couteuse
+       SUM(ingrediant.price * recipe_ingredients.quantity) AS total
+FROM recipe
+INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
+INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
+GROUP BY recipe.id_recipe, recipe.recipe_name
+HAVING total = (    --sous requete        --Cette requête sélectionne la ou les recettes dont le prix total des ingrédients est le plus élevé                               
+    SELECT MAX(total_price)                 -- en comparant le total de chaque recette avec le maximum calculé dans une sous-requête
+    FROM (
+        SELECT SUM(ingrediant.price * recipe_ingredients.quantity) AS total_price -- sous-sous requete
+        FROM recipe
+        INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
+        INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
+        GROUP BY recipe.id_recipe
+    ) AS subquery -- Nom de la sous-sous requete obligatoire -- subquery représente le calcul du prix total maximum des recettes
+);
