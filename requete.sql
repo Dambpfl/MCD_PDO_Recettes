@@ -29,7 +29,7 @@ UPDATE recipe
 SET recipe_name = "Poulet curry" -- maj de recipe_name
 WHERE id_recipe = 3  -- id à changer
 
--- Supprimer la recette2
+-- Supprimer la recette numero 2
 DELETE FROM recipe_ingredients -- enfant de recipe obliger de la supprimer avant
 WHERE id_recipe = 2;
  
