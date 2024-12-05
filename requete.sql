@@ -25,7 +25,9 @@ INSERT INTO recipe (recipe_name, preparation_time, instructions, id_category) --
 VALUES ("Pâtes à la carbonara", 20, "Cuire les pates", 2) -- bien respecter l'ordre -- Verif avec SELECT * FROM recipe
 
 -- Modifier le nom de la recette id3
-
+UPDATE recipe
+SET recipe_name = "Poulet curry" -- maj de recipe_name
+WHERE id_recipe = 3  -- id à changer
 
 -- Supprimer la recette2
 
