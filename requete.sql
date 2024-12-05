@@ -11,7 +11,8 @@ INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
 GROUP BY recipe_name;
 
 -- Afficher les recettes de moins de 30min
-SELECT preparation_time FROM recipe
+SELECT recipe_name, preparation_time 
+FROM recipe
 WHERE preparation_time < 30;
 
 -- Afficher les recettes dont le nom contient salade
