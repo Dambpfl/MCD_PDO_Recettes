@@ -111,3 +111,13 @@ HAVING COUNT(recipe_ingredients.id_recipe) >= 3;
 -- ajouter un ingredient a une recette
 INSERT INTO recipe_ingredients (quantity, unity, id_ingredient, id_recipe)
 VALUES (1, "L", 5, 1); -- Insert 1 litre de (id=5)Sauce César dans (id=1)Salade césar
+
+-- trouve la recette la plus couteuse de la base de données
+SELECT recipe.id_recipe, recipe_name, SUM(ingrediant.price*recipe_ingredients.quantity) AS total
+FROM recipe
+INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
+INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
+WHERE recipe.id_recipe
+GROUP BY recipe.id_recipe, recipe.recipe_name 
+ORDER BY total DESC
+LIMIT 1                          --- 1ère façon de faire pour afficher la recette la plus couteuse
