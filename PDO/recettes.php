@@ -11,7 +11,8 @@
 // On récupère tout le contenu de la table recipes
 $sqlQuery = 'SELECT recipe.recipe_name, recipe.preparation_time, category.category_name
              FROM recipe
-             INNER JOIN category ON category.id_category = recipe.id_category';
+             INNER JOIN category ON category.id_category = recipe.id_category
+             ORDER BY preparation_time DESC';
 $recipesStatement = $mysqlClient->prepare($sqlQuery);
 $recipesStatement->execute();
 $recipes = $recipesStatement->fetchAll(); // va chercher all
