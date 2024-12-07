@@ -9,7 +9,7 @@
 }
 
 // On récupère tout le contenu de la table recipes
-$sqlQuery = 'SELECT recipe.recipe_name, recipe.preparation_time, category.category_name
+$sqlQuery = 'SELECT recipe.id_recipe, recipe.recipe_name, recipe.preparation_time, category.category_name  -- ne pas oublié l id --
              FROM recipe
              INNER JOIN category ON category.id_category = recipe.id_category
              ORDER BY preparation_time DESC';
@@ -39,7 +39,7 @@ $recipes = $recipesStatement->fetchAll(); // va chercher all
         <tbody>
             <?php foreach ($recipes as $recipe) {?>
             <tr>
-                <td><a href="detailRecette.php"><?php echo $recipe['recipe_name']; ?></a></td>
+                <td><a href="detailRecette.php?id=<?php echo $recipe["id_recipe"] ?>"><?php echo $recipe['recipe_name']; ?></a></td> <!-- echo de id obligatoire sinon pas de changement dans l'URL -->
                 <td><?php echo $recipe['preparation_time']; ?></td>
                 <td><?php echo $recipe['category_name']; ?></td>
             </tr> <?php } ?>

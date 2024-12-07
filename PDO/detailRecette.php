@@ -8,16 +8,20 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
-$sqlQuery2 = 'SELECT recipe.recipe_name, category.category_name, recipe.preparation_time, recipe.instructions,
+$id = $_GET['id']; // recup l'id de mon URL
+
+$sqlQuery2 = 'SELECT recipe.id_recipe, recipe.recipe_name, category.category_name, recipe.preparation_time, recipe.instructions,
                      ingrediant.ingrediant_name, recipe_ingredients.quantity, ingrediant.price
              FROM recipe
              INNER JOIN category ON category.id_category = recipe.id_category
              INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
-             INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant';
+             INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
+             WHERE recipe.id_recipe = :id';
 
 $recipesStatement2 = $mysqlClient2->prepare($sqlQuery2);
+$recipesStatement2->bindParam(':id', $id, PDO::PARAM_INT); // lie mon :id à ma variable $id puis filtre INT pour s'assuré que ce n'est pas des string
 $recipesStatement2->execute();
-$recipes = $recipesStatement2->fetch(); // va chercher une info
+$recipes = $recipesStatement2->fetch(); // va chercher une info/ligne
 
 ?>
 
@@ -29,11 +33,10 @@ $recipes = $recipesStatement2->fetch(); // va chercher une info
     <title>Document</title>
 </head>
 <body>
-    <h1>Detail recette</h1>
+    <h1><?php echo $recipes['recipe_name']; ?></h1>
     <table border = 1>
     <thead>
         <tr>
-            <th>Recette</th>
             <th>Temps de préparation</th>
             <th>Catégorie</th>
             <th>Ingredient</th>
@@ -42,8 +45,6 @@ $recipes = $recipesStatement2->fetch(); // va chercher une info
     </thead>
         <tbody>
                 <tr>
-                    <td><?php echo $recipes['recipe_name']; ?></td>
-                        <!-- trouver comment lié a l'id -->
                 </tr>
             </tbody>
         </table>
