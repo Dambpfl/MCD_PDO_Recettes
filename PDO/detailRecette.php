@@ -23,6 +23,8 @@ $recipesStatement2->bindParam(':id', $id, PDO::PARAM_INT); // lie mon :id à ma 
 $recipesStatement2->execute();
 $recipes = $recipesStatement2->fetch(); // va chercher une info/ligne
 
+// NEW QUERY INGREDIANT 
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +47,9 @@ $recipes = $recipesStatement2->fetch(); // va chercher une info/ligne
     </thead>
         <tbody>
                 <tr>
+                    <td><?php echo $recipes['preparation_time']; ?></td>
+                    <td><?php echo $recipes['category_name']; ?></td>
+                    <td><?php $recipes->fetchAll() echo $recipes['ingrediant_name']; ?></td> <!-- DOUBLE REQUETE SQL 
                 </tr>
             </tbody>
         </table>
