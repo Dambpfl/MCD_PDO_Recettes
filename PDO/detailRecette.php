@@ -23,7 +23,8 @@ $recipesStatement2->execute();
 $recipes = $recipesStatement2->fetch(); // va chercher une info/ligne
 
 // REQUETE INGREDIENTS FETCH ALL
-$sqlQuery3 = 'SELECT recipe_ingredients.id_recipe, ingrediant.ingrediant_name 
+$sqlQuery3 = 'SELECT recipe_ingredients.id_recipe, ingrediant.ingrediant_name, recipe_ingredients.quantity,
+                     recipe_ingredients.unity, ingrediant.price
               FROM recipe_ingredients
               INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
               WHERE recipe_ingredients.id_recipe = :id';
@@ -50,13 +51,26 @@ $ingredients = $ingredientsStatement->fetchAll();
     <thead>
         <tr>
             <th>Liste des ingredients</th>
+            <th>Quantité</th>
+            <th>Unité</th>
+            <th>Prix</th>
             <th>Instructions</th>
         </tr>
     </thead>
         <tbody>
                 <tr>
                     <td><?php foreach ($ingredients as $ingredient){  // FETCH ALL POUR AVOIR TOUT LES INGREDIENTS
-                                 echo $ingredient['ingrediant_name']. "<br>"; } ?></td> 
+                                 echo $ingredient['ingrediant_name']. "<br>"; } ?></td>
+
+                    <td><?php foreach ($ingredients as $ingredient) {
+                                echo $ingredient['quantity']. "<br>"; } ?></td>
+
+                    <td><?php foreach ($ingredients as $ingredient) {
+                                echo $ingredient['unity']. "<br>"; } ?></td>
+
+                    <td><?php foreach ($ingredients as $ingredient) {
+                                echo $ingredient['price']." €". "<br>"; } ?></td>
+
                     <td><?php if($recipes['instructions']){
                                 echo $recipes['instructions'];
                               }else {echo "Pas d'instruction"; }?></td>
