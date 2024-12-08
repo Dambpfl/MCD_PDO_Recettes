@@ -10,6 +10,7 @@ try {
 
 $id = $_GET['id']; // recup l'id de mon URL
 
+// REQUETE INFO FETCH
 $sqlQuery2 = 'SELECT recipe.id_recipe, recipe.recipe_name, category.category_name, recipe.preparation_time, recipe.instructions,
                      ingrediant.ingrediant_name, recipe_ingredients.quantity, ingrediant.price
              FROM recipe
@@ -23,8 +24,8 @@ $recipesStatement2->bindParam(':id', $id, PDO::PARAM_INT); // lie mon :id à ma 
 $recipesStatement2->execute();
 $recipes = $recipesStatement2->fetch(); // va chercher une info/ligne
 
-// NEW QUERY INGREDIANT 
-$sqlQuery3 = 'SELECT ingrediant.ingrediant_name 
+// REQUETE INGREDIENTS FETCH ALL
+$sqlQuery3 = 'SELECT recipe_ingredients.id_recipe, ingrediant.ingrediant_name 
               FROM recipe_ingredients
               INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
               WHERE recipe_ingredients.id_recipe = :id';
@@ -45,24 +46,22 @@ $ingredients = $ingredientsStatement->fetchAll();
 </head>
 <body>
     <h1><?php echo $recipes['recipe_name']; ?></h1>
+    <p> Temps de préparation : <?php echo $recipes['preparation_time']; ?> min</p>
+    <p> Catégorie : <?php echo $recipes['category_name']; ?></p>
     <table border = 1>
     <thead>
         <tr>
-            <th>Temps de préparation</th>
-            <th>Catégorie</th>
-            <th>Ingredient</th>
+            <th>Liste des ingredients</th>
             <th>Instructions</th>
         </tr>
     </thead>
         <tbody>
                 <tr>
-                    <td><?php echo $recipes['preparation_time']; ?></td>
-                    <td><?php echo $recipes['category_name']; ?></td>
-                    <td><?php foreach ($ingredients as $ingredient){
+                    <td><?php foreach ($ingredients as $ingredient){  // FETCH ALL POUR AVOIR TOUT LES INGREDIENTS
                                  echo $ingredient['ingrediant_name']. "<br>"; } ?></td> 
                     <td><?php if($recipes['instructions']){
                                 echo $recipes['instructions'];
-                    }else {echo "Pas d'instruction"; }?></td>
+                              }else {echo "Pas d'instruction"; }?></td>
                 </tr>
             </tbody>
         </table>
