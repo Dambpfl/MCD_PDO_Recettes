@@ -54,7 +54,6 @@ $ingredients = $ingredientsStatement->fetchAll();
             <th>Quantité</th>
             <th>Unité</th>
             <th>Prix</th>
-            <th>Instructions</th>
         </tr>
     </thead>
         <tbody>
@@ -70,12 +69,11 @@ $ingredients = $ingredientsStatement->fetchAll();
 
                     <td><?php foreach ($ingredients as $ingredient) {
                                 echo $ingredient['price']." €". "<br>"; } ?></td>
-
-                    <td><?php if($recipes['instructions']){
-                                echo $recipes['instructions'];
-                              }else {echo "Pas d'instruction"; }?></td>
                 </tr>
             </tbody>
         </table>
+            <p>Instructions : <?php if($recipes['instructions']){
+                                    echo $recipes['instructions'];
+                                     }else {echo "Pas d'instructions"; }?></p>
 </body>
 </html>
