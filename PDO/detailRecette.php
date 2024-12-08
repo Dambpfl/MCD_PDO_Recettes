@@ -19,11 +19,20 @@ $sqlQuery2 = 'SELECT recipe.id_recipe, recipe.recipe_name, category.category_nam
              WHERE recipe.id_recipe = :id';
 
 $recipesStatement2 = $mysqlClient2->prepare($sqlQuery2);
-$recipesStatement2->bindParam(':id', $id, PDO::PARAM_INT); // lie mon :id à ma variable $id puis filtre INT pour s'assuré que ce n'est pas des string
+$recipesStatement2->bindParam(':id', $id, PDO::PARAM_INT); // lie mon :id à ma variable $id puis filtre INT 
 $recipesStatement2->execute();
 $recipes = $recipesStatement2->fetch(); // va chercher une info/ligne
 
 // NEW QUERY INGREDIANT 
+$sqlQuery3 = 'SELECT ingrediant.ingrediant_name 
+              FROM recipe_ingredients
+              INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
+              WHERE recipe_ingredients.id_recipe = :id';
+
+$ingredientsStatement = $mysqlClient2->prepare($sqlQuery3);
+$ingredientsStatement->bindParam(':id', $id, PDO::PARAM_INT);
+$ingredientsStatement->execute();
+$ingredients = $ingredientsStatement->fetchAll();
 
 ?>
 
@@ -49,7 +58,11 @@ $recipes = $recipesStatement2->fetch(); // va chercher une info/ligne
                 <tr>
                     <td><?php echo $recipes['preparation_time']; ?></td>
                     <td><?php echo $recipes['category_name']; ?></td>
-                    <td><?php $recipes->fetchAll() echo $recipes['ingrediant_name']; ?></td> <!-- DOUBLE REQUETE SQL 
+                    <td><?php foreach ($ingredients as $ingredient){
+                                 echo $ingredient['ingrediant_name']. "<br>"; } ?></td> 
+                    <td><?php if($recipes['instructions']){
+                                echo $recipes['instructions'];
+                    }else {echo "Pas d'instruction"; }?></td>
                 </tr>
             </tbody>
         </table>
