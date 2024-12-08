@@ -11,12 +11,10 @@ try {
 $id = $_GET['id']; // recup l'id de mon URL
 
 // REQUETE INFO FETCH
-$sqlQuery2 = 'SELECT recipe.id_recipe, recipe.recipe_name, category.category_name, recipe.preparation_time, recipe.instructions,
-                     ingrediant.ingrediant_name, recipe_ingredients.quantity, ingrediant.price
+$sqlQuery2 = 'SELECT recipe.id_recipe, recipe.recipe_name, category.category_name, recipe.preparation_time, recipe.instructions
              FROM recipe
              INNER JOIN category ON category.id_category = recipe.id_category
              INNER JOIN recipe_ingredients ON recipe.id_recipe = recipe_ingredients.id_recipe
-             INNER JOIN ingrediant ON recipe_ingredients.id_ingredient = ingrediant.id_ingrediant
              WHERE recipe.id_recipe = :id';
 
 $recipesStatement2 = $mysqlClient2->prepare($sqlQuery2);
