@@ -57,18 +57,15 @@ $ingredients = $ingredientsStatement->fetchAll();
         </tr>
     </thead>
         <tbody>
+            <?php foreach ($ingredients as $ingredient){ ?>
                 <tr>
-                    <td><?php foreach ($ingredients as $ingredient){  // FETCH ALL POUR AVOIR TOUT LES INGREDIENTS
-                                 echo $ingredient['ingrediant_name']. "<br>"; } ?></td>
+                    <td><?php echo $ingredient['ingrediant_name']. "<br>";  ?></td>
 
-                    <td><?php foreach ($ingredients as $ingredient) {
-                                echo $ingredient['quantity']. "<br>"; } ?></td>
+                    <td><?php echo $ingredient['quantity']. "<br>";  ?></td>
 
-                    <td><?php foreach ($ingredients as $ingredient) {
-                                echo $ingredient['unity']. "<br>"; } ?></td>
+                    <td><?php echo $ingredient['unity']. "<br>";  ?></td>
 
-                    <td><?php foreach ($ingredients as $ingredient) {
-                                echo $ingredient['price']." €". "<br>"; } ?></td>
+                    <td><?php echo $ingredient['price']." €". "<br>";}  ?></td>
                 </tr>
             </tbody>
         </table>
