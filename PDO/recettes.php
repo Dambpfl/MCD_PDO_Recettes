@@ -9,7 +9,7 @@
 }
 
 // On récupère tout le contenu de la table recipes
-$sqlQuery = 'SELECT recipe.id_recipe, recipe.recipe_name, recipe.preparation_time, category.category_name  -- ne pas oublié l id --
+$sqlQuery = 'SELECT recipe.id_recipe, recipe.recipe_name, recipe.preparation_time, category.category_name, recipe.instructions  -- ne pas oublié l id --
              FROM recipe
              INNER JOIN category ON category.id_category = recipe.id_category
              ORDER BY preparation_time DESC';
@@ -25,25 +25,23 @@ $recipes = $recipesStatement->fetchAll(); // va chercher all
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <title>Document</title>
 </head>
 <body>
-    <table border = 10>
-        <thead>
-            <tr>
-                <th>Recette</th>
-                <th>Temps de préparation</th>
-                <th>catégorie</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($recipes as $recipe) {?>
-            <tr>
-                <td><a href="detailRecette.php?id=<?php echo $recipe["id_recipe"] ?>"><?php echo $recipe['recipe_name']; ?></a></td> <!-- echo de id obligatoire sinon pas de changement dans l'URL -->
-                <td><?php echo $recipe['preparation_time']; ?></td>
-                <td><?php echo $recipe['category_name']; ?></td>
-            </tr> <?php } ?>
-        </tbody>
-    </table>
+    <h1>Mes recettes</h1>
+
+            <div class="recettes">               
+                <?php foreach ($recipes as $recipe) {?>
+                    <a class="recette" href="detailRecette.php?id=<?php echo $recipe["id_recipe"] ?>">
+                        <div class="name-recette"><?php echo $recipe['recipe_name']; ?></div> <!-- echo de id obligatoire sinon pas de changement dans l'URL -->
+                        <div class="time"><i class="fa-regular fa-clock"></i> <?php echo $recipe['preparation_time']; ?> min</div>
+                        <div class="name-category"><?php echo $recipe['category_name']; ?></div>
+                        <div class="instruction"><?php echo $recipe['instructions']; ?></div>
+                    </a>
+                <?php } ?>
+            </div>
+
 </body>
 </html>
