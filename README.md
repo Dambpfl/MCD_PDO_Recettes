@@ -53,6 +53,12 @@ SQL
 - const DB = "recipe_demo";
 - const USER = "root";
 - const PASS = "";
+  
+<h1>✨ Démonstration</h1>
+
+<h2>Captures d'écran</h2>
+
+![image](https://github.com/user-attachments/assets/ab4fa205-90ba-4fd2-b7fa-858e9c574510)
 
 
 
